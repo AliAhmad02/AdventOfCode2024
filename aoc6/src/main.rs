@@ -36,6 +36,8 @@ fn main() {
 
     let mut obstructions: u32 = 0;
 
+    positions.remove(&start_idx);
+
     for idx in positions {
         input.replace_range((idx as usize)..(idx as usize) + 1, "#");
         obstructions += check_loop(
@@ -47,9 +49,6 @@ fn main() {
         ) as u32;
         input.replace_range((idx as usize)..(idx as usize) + 1, ".");
     }
-
-    // Subtract 1 because we are also counting the first position
-    obstructions -= 1;
 
     println!("Total number of obstructions: {}", obstructions);
 }
