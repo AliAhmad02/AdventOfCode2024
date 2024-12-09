@@ -8,13 +8,6 @@ fn main() {
     println!("{}", checksum);
 }
 
-// fn format_input_p2(input: &str) {
-//     let mut formatted_input = Vec::new();
-//     for (idx, character) in input.chars().enumerate() {
-        
-//     }
-// }
-
 fn format_input(input: &str) -> Vec<String> {
     let mut formatted_input = Vec::new();
     for (idx, character) in input.chars().enumerate() {
