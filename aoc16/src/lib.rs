@@ -26,9 +26,10 @@ fn num_best_seats(
     dijkstra_res_start: DijkstraResult,
     best_seats: &mut HashSet<usize>,
 ) -> usize {
-    for (idx, character) in grid.values.chars().enumerate() {
-        if character != '#' && !best_seats.contains(&idx) {
-            let dist_from_start = *dijkstra_res_start.distances.get(&idx).unwrap_or(&u32::MAX);
+    let min_dist = *dijkstra_res_start.distances.get(&end_node).unwrap();
+
+    for (&idx, &dist_from_start) in dijkstra_res_start.distances.iter() {
+        if dist_from_start <= min_dist {
             let final_dir_start = dijkstra_res_start
                 .final_directions
                 .get(&idx)
@@ -39,12 +40,8 @@ fn num_best_seats(
                 .distances
                 .get(&end_node)
                 .unwrap_or(&u32::MAX);
-            let min_dist = *dijkstra_res_start.distances.get(&end_node).unwrap();
 
-            if (dist_from_start != u32::MAX)
-                && (dist_to_end != u32::MAX)
-                && (dist_from_start + dist_to_end) == min_dist
-            {
+            if (dist_to_end <= min_dist) && (dist_from_start + dist_to_end == min_dist) {
                 best_seats.extend(dijkstra_res_start.get_path_to_node(idx));
                 best_seats.extend(dijkstra_res_end.get_path_to_node(end_node));
             }
